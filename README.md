@@ -9,17 +9,13 @@ Someone claimed, and then deleted, that by sending crafted requests to JDK9+ Spr
 * Use the modified logger to write a valid JSP file that contains a webshell.
 * Use the webshell for remote execution tomfoolery.
 
-This claim was then amplified, but *as of writing*, there have not been public claims by reputable EN-speaking sources that this works (that I can find).
+Praetorian has publicly confirmed that they have replicated the issue - a bypass for CVE-2010-1622 - and that the vulnerability is unpatched. Please read over their guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes mitigation steps.
 
 ## Resources
 
-Alleged link to security patch in Spring production: https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529
+The original PoC's README linked to an alleged security patch in Spring production [here](https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529), however given the maintainer's rebuttal (see below) and Praetorian's confirmation of the vulnerabiloity (see above), this patch appears unrelated and was flagged by the original author probably as a misunderstanding.
 
-Looking for the original copy of this *alleged* leaked 0day? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
-
-## Key Commentary
-
-[Sam Brannen](https://github.com/sbrannen) (maintainer) comments:
+[Sam Brannen](https://github.com/sbrannen) (maintainer) comments on that commit:
 
 > What @Kontinuation said is correct.
 > 
@@ -33,22 +29,12 @@ Looking for the original copy of this *alleged* leaked 0day? Use vx-underground'
 > 
 > Thank you
 
-[Will Dormann](https://twitter.com/wdormann/status/1509225394561507333) (CERT/CC analyst) has also noted that this appears to be confused by some folks and news outlets due to *another* Spring vulnerability which was disclosed this year:
-
-> OK, where are we with Spring stuff?
->
-> 1) CVE-2022-22963 is a thing, and it affects Spring Cloud Connector.  It's RCE, so the CVSS score of 5.4 seems way off.
->
-> 2) Spring4Shell / SpringShell, invented by Cyber Kendra, isn't a Spring vulnerability at all.
->
-> Does that sound about right?
-
-**New**: [Praetorian](https://twitter.com/praetorianlabs/status/1509207085485113356) claims that Spring Core is vulnerable to RCE due to a bypass for [CVE-2010-1622](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-1622). I've asked them for a demo application.
+Looking for the original copy? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
 
 ## TODOs
 
 * Get a Mandarin speaker to help confirm and clean up this veeery rough machine-made translation.
-* Replicate.
+* Replicate (after work lol).
 
 # SpringBeans RCE Vulnerability Analysis
 
