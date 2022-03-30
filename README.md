@@ -22,10 +22,10 @@ Looking for the original copy of this *alleged* leaked 0day? Use vx-underground'
 TODOs:
 
 * Get a Mandarin speaker to help confirm and clean up this veeery rough machine-made translation.
-* Assess what the images claim to show.
+* Assess what the images claim to show. **In progress ...**
 * Replicate.
 
-# Spring-beans RCE Vulnerability Analysis
+# SpringBeans RCE Vulnerability Analysis
 
 ## Requirements
 * JDK9 and above
@@ -33,7 +33,7 @@ TODOs:
 * Spring parameter binding is used
 * Spring parameter binding uses non-basic parameter types, such as general POJOs
 
-*Analyst's note:* Does this imply this is an RCE only in nondefault cases? The author then seems to claims this is a reasonable use of SpringBeans.
+> *Analyst's note:* Does this imply this is an RCE only in nondefault cases? The author then seems to claims this is a reasonable use of SpringBeans.
 
 ## Demo
 
@@ -41,7 +41,7 @@ TODOs:
 https://github.com/p1n93r/spring-rce-war
 ```
 
-*Analyst's note:* Gone, and no saved version. :/
+> *Analyst's note:* Gone, and no saved version. :/
 
 ## Vulnerability Analysis
 Spring parameter binding does not introduce too much, you can do it yourself; its basic usage is to use the form of `.` to assign values to parameters. The actual assignment process will use reflection to call the parameters `getter` or `setter`.
@@ -114,7 +114,14 @@ So I started the whole process of parameter binding. When I followed the call po
 
 When I looked at this "cache", I was stunned, why is there a "class" attribute cache here? ? ? ! ! ! ! !
 
-**TODO: Assess the contents of image 2 in the Vulnerability Analysis PDF.**
+> *Analyst's notes on picture*
+>
+> The author is still viewing the same `BreanWrapperImpl.class` file, hovering over `this.getCachedIntrospectionResults()` and using IntelliJ's Evaluate function. They show that the `propertyDescriptorCache` class definition is:
+>
+> `"class" -> (GenericTypeAwarePropertyDescriptor@5848) *org.springframework.beans.GenericTypeAwarePropertyDescriptor ...`
+>
+> And comment: "There is actually a class. There is no need to store the class attribute in the POJO we use at all. When spring defines parameters, it will bring a class property used to refer to the POJO class to be bound.
+
 
 When I saw this, I knew I was wrong, this is not a garbage hole, it is really a nuclear bomb-level loophole! Now it is clear that we can easily get the class pair.
 
