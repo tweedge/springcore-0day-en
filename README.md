@@ -49,10 +49,13 @@ Looking for the original copy? Use vx-underground's archive here: https://share.
 
 ## TODOs
 
-* Get a Mandarin speaker to help confirm and clean up this veeery rough machine-made translation.
-* Replicate (after work lol).
+* ✅ Get a machine-made translation and notes down for all the screenshots included in the Vulnerability Analysis PDF.
+* ❌ Get a Mandarin speaker to help confirm and clean up the machine-made translation.
+* ❌ Replicate and release a demo application.
 
-# SpringBeans RCE Vulnerability Analysis
+Will be resuming after getting some work done.
+
+# SpringBeans RCE Vulnerability Analysis (Translated)
 
 ## Requirements
 * JDK9 and above
