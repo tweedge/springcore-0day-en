@@ -1,9 +1,25 @@
 # springcore-0day-en
 The README from the alleged 0day dropped on 2022-03-29 has been translated to English and cleaned up slightly to assist in analysis. This should also help alleviate confusion & conflation with othe Spring-related vulnerabilities.
 
+## TL;DR
+
+Someone claimed, and then deleted, that by sending crafted requests to JDK9+ SpringBeans-using applications, *under certain circumstances*, that they can remotely:
+
+* Modify the logging parameters of that application to achieve an arbitrary write.
+* Use the modified logger to write a valid JSP file that contains a webshell.
+* Use the webshell for remote execution tomfoolery.
+
+This claim was then amplified, but *as of writing*, there have not been public claims by reputable EN-speaking sources that this works (that I can find).
+
+## Resources
+
 Alleged link to security patch in Spring production: https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529
 
-[@sbrannen ](https://github.com/sbrannen) (maintainer) comments:
+Looking for the original copy of this *alleged* leaked 0day? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
+
+## Key Commentary
+
+[Sam Brannen](https://github.com/sbrannen) (maintainer) comments:
 
 > What @Kontinuation said is correct.
 > 
@@ -17,9 +33,17 @@ Alleged link to security patch in Spring production: https://github.com/spring-p
 > 
 > Thank you
 
-Looking for the original copy of this *alleged* leaked 0day? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
+[Will Dormann](https://twitter.com/wdormann/status/1509225394561507333) (CERT/CC analyst) has also noted that this appears to be confused by some folks and news outlets due to *another* Spring vulnerability which was disclosed this year:
 
-TODOs:
+> OK, where are we with Spring stuff?
+>
+> 1) CVE-2022-22963 is a thing, and it affects Spring Cloud Connector.  It's RCE, so the CVSS score of 5.4 seems way off.
+>
+> 2) Spring4Shell / SpringShell, invented by Cyber Kendra, isn't a Spring vulnerability at all.
+>
+> Does that sound about right?
+
+## TODOs
 
 * Get a Mandarin speaker to help confirm and clean up this veeery rough machine-made translation.
 * Replicate.
