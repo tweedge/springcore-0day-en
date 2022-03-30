@@ -43,7 +43,7 @@ Looking for the original copy of this *alleged* leaked 0day? Use vx-underground'
 >
 > Does that sound about right?
 
-**New**: [Praetorian](https://twitter.com/praetorianlabs/status/1509207085485113356) claims that Spring Core is vulnerable to RCE due to a bypass for CVE-2010-1622 - allegedly, this PoC is doing that. Asked them for a demo application.
+**New**: [Praetorian](https://twitter.com/praetorianlabs/status/1509207085485113356) claims that Spring Core is vulnerable to RCE due to a bypass for [CVE-2010-1622](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2010-1622). I've asked them for a demo application.
 
 ## TODOs
 
