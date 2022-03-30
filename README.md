@@ -18,7 +18,7 @@ Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/150
 **Please note that this is a different issue than CVE-2022-22963!**
 
 * CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions. It has a medium CVSS score (5.4) and has a patch available.
-* This vulnerability leads to RCE in SpringBeans applications under nondefault circumstances. It does not have a CVE number assigned, does not yet have a CVSS score, and does not (yet) have a patch available.
+* This vulnerability leads to RCE in Spring Core applications under nondefault circumstances. It does not have a CVE number assigned, does not yet have a CVSS score, and does not (yet) have a patch available.
 
 **Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion and making triage much more difficult.**
 
