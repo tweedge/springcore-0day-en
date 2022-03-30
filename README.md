@@ -9,7 +9,19 @@ Someone claimed, and then deleted, that by sending crafted requests to JDK9+ Spr
 * Use the modified logger to write a valid JSP file that contains a webshell.
 * Use the webshell for remote execution tomfoolery.
 
-Praetorian has publicly confirmed that they have replicated the issue - a bypass for CVE-2010-1622 - and that the vulnerability is unpatched. Please read over their guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes mitigation steps.
+Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue. This is being described as a bypass for CVE-2010-1622 - and that the vulnerability is currently unpatched. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes mitigation steps.
+
+## Commentary
+
+[Will Dormann](https://twitter.com/wdormann/status/1509205469193195525) (CERT/CC analyst) notes:
+
+> So, somebody can produce a spring-beans-based Java app that uses parameter binding, and if that binding is with a Plain Old Java Object (POJO), this results in vulnerable code?
+>
+> Spring now warns about folks using this footgun?
+>
+> Are there any real-world apps that do this? If not 🤷
+
+This does not instinctively seem like it's going to be a cataclysmic event such as Log4Shell, as this vulnerability appears to require some probing to get working depending on the target environment, and the consensus on Twitter (as of 3/30) is that this appears to be nondefault.
 
 ## Resources
 
