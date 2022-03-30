@@ -7,7 +7,7 @@ If you manage to create a demo application that folks could use to independently
 
 ## TL;DR
 
-Someone claimed, and then deleted, that by sending crafted requests to JDK9+ SpringBeans-using applications, *under certain circumstances*, that they can remotely:
+A GitHub user (`p1n93r`) claimed, and then deleted, that by sending crafted requests to JDK9+ SpringBeans-using applications, *under certain circumstances*, that they can remotely:
 
 * Modify the logging parameters of that application to achieve an arbitrary write.
 * Use the modified logger to write a valid JSP file that contains a webshell.
