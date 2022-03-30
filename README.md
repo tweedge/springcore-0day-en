@@ -13,7 +13,14 @@ A GitHub user (`p1n93r`) claimed, and then deleted, that by sending crafted requ
 * Use the modified logger to write a valid JSP file that contains a webshell.
 * Use the webshell for remote execution tomfoolery.
 
-Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue. This is being described as a bypass for CVE-2010-1622 - and that the vulnerability is currently unpatched. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes mitigation steps.
+Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue. This is being described as a bypass for CVE-2010-1622 - and that the vulnerability is currently unpatched. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes detailed identification and mitigation steps.
+
+**Please note that this is a different issue than CVE-2022-22963!**
+
+* CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions. It has a medium CVSS score (5.4) and has a patch available.
+* This vulnerability leads to RCE in SpringBeans applications under nondefault circumstances. It does not have a CVE number assigned, does not yet have a CVSS score, and does not (yet) have a patch available.
+
+**Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion and making triage much more difficult.**
 
 ## Commentary
 
