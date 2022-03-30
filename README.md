@@ -22,7 +22,6 @@ Looking for the original copy of this *alleged* leaked 0day? Use vx-underground'
 TODOs:
 
 * Get a Mandarin speaker to help confirm and clean up this veeery rough machine-made translation.
-* Assess what the images claim to show. **In progress ...**
 * Replicate.
 
 # SpringBeans RCE Vulnerability Analysis
@@ -153,7 +152,7 @@ After sending these five requests, Tomcat's log configuration is modified as fol
 >
 > The author is now viewing a code fragment of `((WebappClassLoaderBase)evalBean.getClass().getClassLoader().getResources().getContext().getParent().getPipeline().getFirst();`
 > 
-> They show that for the AccessLogValve, the suffix is now `.jsp`, the the prefix is now `fuckJsp`, etc. - basically showing that the parameters they claim to be setting above have been saved to the `AccessLogValve`, overwriting the original configuration.
+> They show that for the AccessLogValve, the suffix is now `.jsp`, the the prefix is now `fuckJsp`, etc. - basically showing that the parameters they claim to be setting above have been saved to the `AccessLogValve`, overwriting the original configuration. **The goal of this is to manipulate this alleged vulnerability to create a log file with valid JSP in it to use as a webshell, which the attacker can then utilize normally.**
 >
 > Importantly, no before/after is shown or recorded, so these could have simply be set beforehand, though that'd be willfully deceitful if the author had done so. I'm not accusing them of this, just making a note that no before/after or progression is shown.
 
@@ -175,11 +174,21 @@ Sec-Fetch-Site: none
 Sec-Fetch-User: ?1
 ```
 
-**TODO: Assess the contents of image 4 in the Vulnerability Analysis PDF.**
+> *Analyst's notes on screenshot 4*
+>
+> The author shows a directory view which includes a presumably-new file titled `fuckJsp.jsp` - which the author claims to have set as the `AccessLogValve` with their above exploit. This is claimed to work because they set the logger to log the `fuck` headers of requests to `fuckJsp.jsp`. `fuckJsp.jsp` contains the contents:
+>
+> `-`
+> `<%Runtime.getRuntime().exec(requests.getParameter("cmd"));%>`
+> `-`
+>
+> A simple webshell which executes anything given in the `cmd` parameter, which the author points to with the descriptor "successfully wrote the shell."
 
 The shell can be accessed normally:
 
-**TODO: Assess the contents of image 5 in the Vulnerability Analysis PDF.**
+> *Analyst's notes on screenshot 5*
+>
+> The author now shows Burp overlaid with `calc.exe` open after running a GET request to `/stupidRumor_war_exploded/fuckJsp.jsp?cmd=calc`
 
 ## Summary
 
