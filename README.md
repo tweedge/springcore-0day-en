@@ -1,5 +1,9 @@
 # springcore-0day-en
-The README from the alleged 0day dropped on 2022-03-29 has been translated to English and cleaned up slightly to assist in analysis. This should also help alleviate confusion & conflation with othe Spring-related vulnerabilities.
+The README from the ~~alleged~~ **appears confirmed!** 0day dropped on 2022-03-29 has been translated to English and cleaned up slightly to assist in your analysis and replication.
+
+This should also help alleviate confusion & conflation with othe Spring-related vulnerabilities.
+
+If you manage to create a demo application that folks could use to independently validate and deep-dive, please let me know via GitHub Issues so I can link it!
 
 ## TL;DR
 
