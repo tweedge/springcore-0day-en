@@ -60,7 +60,7 @@ Looking for the original copy? Use vx-underground's archive here: https://share.
 * Spring parameter binding is used
 * Spring parameter binding uses non-basic parameter types, such as general POJOs
 
-> *Analyst's note:* Does this imply this is an RCE only in nondefault cases? The author then seems to claims this is a reasonable use of SpringBeans.
+> *Analyst's note:* This stated that the vulnerability can only attain RCE in nondefault cases. The author later claims this is a reasonable use of SpringBeans. Since this is not the *default* case, I'm laying shame on any news outlet claiming this vulnerability is the next log4shell. It categorically isn't.
 
 ## Demo
 
@@ -181,8 +181,6 @@ After sending these five requests, Tomcat's log configuration is modified as fol
 > The author is now viewing a code fragment of `((WebappClassLoaderBase)evalBean.getClass().getClassLoader().getResources().getContext().getParent().getPipeline().getFirst();`
 > 
 > They show that for the AccessLogValve, the suffix is now `.jsp`, the the prefix is now `fuckJsp`, etc. - basically showing that the parameters they claim to be setting above have been saved to the `AccessLogValve`, overwriting the original configuration. **The goal of this is to manipulate this alleged vulnerability to create a log file with valid JSP in it to use as a webshell, which the attacker can then utilize normally.**
->
-> Importantly, no before/after is shown or recorded, so these could have simply be set beforehand, though that'd be willfully deceitful if the author had done so. I'm not accusing them of this, just making a note that no before/after or progression is shown.
 
 Then we just need to send a random request, add a header called fuck, and write to the shell:
 
