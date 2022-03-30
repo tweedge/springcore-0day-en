@@ -102,7 +102,7 @@ public void index(EvalBean evalBean, Model model) {
 
 So I started the whole process of parameter binding. When I followed the call position as follows, I was stunned.
 
-> *Analyst's notes on picture*
+> *Analyst's notes on screenshot 1*
 >
 > The author then shows a screenshot of `BreanWrapperImpl.class` (see [Spring Frameworks BeanWrapperImpl docs](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/BeanWrapperImpl.html)) with an arrow pointing to `this.getCachedIntrospectionResults()` on line 110, with the label "Find property names from this cache."
 > 
@@ -114,7 +114,7 @@ So I started the whole process of parameter binding. When I followed the call po
 
 When I looked at this "cache", I was stunned, why is there a "class" attribute cache here? ? ? ! ! ! ! !
 
-> *Analyst's notes on picture*
+> *Analyst's notes on screenshot 2*
 >
 > The author is still viewing the same `BreanWrapperImpl.class` file, hovering over `this.getCachedIntrospectionResults()` and using IntelliJ's Evaluate function. They show that the `propertyDescriptorCache` class definition is:
 >
@@ -149,7 +149,13 @@ http://127.0.0.1:8080/stupidRumor_war_exploded/index?class.module.classLoader.re
 
 After sending these five requests, Tomcat's log configuration is modified as follows:
 
-**TODO: Assess the contents of image 3 in the Vulnerability Analysis PDF.**
+> *Analyst's notes on screenshot 3*
+>
+> The author is now viewing a code fragment of `((WebappClassLoaderBase)evalBean.getClass().getClassLoader().getResources().getContext().getParent().getPipeline().getFirst();`
+> 
+> They show that for the AccessLogValve, the suffix is now `.jsp`, the the prefix is now `fuckJsp`, etc. - basically showing that the parameters they claim to be setting above have been saved to the `AccessLogValve`, overwriting the original configuration.
+>
+> Importantly, no before/after is shown or recorded, so these could have simply be set beforehand, though that'd be willfully deceitful if the author had done so. I'm not accusing them of this, just making a note that no before/after or progression is shown.
 
 Then we just need to send a random request, add a header called fuck, and write to the shell:
 
