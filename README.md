@@ -1,9 +1,7 @@
 # springcore-0day-en
-The README from the ~~alleged~~ **appears confirmed!** 0day dropped on 2022-03-29 has been translated to English and cleaned up slightly to assist in your analysis and replication.
+The README from the ~~alleged~~ **appears confirmed!** 0day dropped on 2022-03-29 has been translated to English and cleaned up slightly to assist in your analysis and replication. If you manage to create a demo application that folks could use to independently validate and deep-dive, please let me know via GitHub Issues so I can link it!
 
-This should also help alleviate confusion & conflation with othe Spring-related vulnerabilities.
-
-If you manage to create a demo application that folks could use to independently validate and deep-dive, please let me know via GitHub Issues so I can link it!
+**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult.**
 
 ## TL;DR
 
@@ -15,12 +13,21 @@ A GitHub user (`p1n93r`) claimed, and then deleted, that by sending crafted requ
 
 Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue. This is being described as a bypass for CVE-2010-1622 - and that the vulnerability is currently unpatched. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes detailed identification and mitigation steps.
 
-**Please note that this is a different issue than CVE-2022-22963!**
+## You're sure this isn't CVE-2022-22963?
 
-* CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions. It has a medium CVSS score (5.4) and has a patch available.
-* This vulnerability leads to RCE in Spring Core applications under nondefault circumstances. It does not have a CVE number assigned, does not yet have a CVSS score, and does not (yet) have a patch available.
+**Yes.**
 
-**Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion and making triage much more difficult.**
+CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions.
+* CVE: CVE-2022-22963 (duh)
+* Patch available: **Yes**.
+* CVSS score: Medium.
+* Impacts: Spring Cloud Function versions 3.1.6, 3.2.2, and older unsupported versions, where the routing functionality is used. See [VMware Tanzu's report](https://tanzu.vmware.com/security/cve-2022-22963).
+
+This vulnerability leads to RCE in Spring Core applications under nondefault circumstances.
+* CVE: None assigned yet.
+* Patch available: **No**.
+* CVSS score: Unknown.
+* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) for info we have *so far* on when this vulnerability occurs.
 
 ## Commentary
 
