@@ -1,9 +1,23 @@
 # springcore-0day-en
 The README from the alleged 0day dropped on 2022-03-29 has been translated to English and cleaned up slightly to assist in analysis. This should also help alleviate confusion & conflation with othe Spring-related vulnerabilities.
 
-Alleged link to patch in Spring production: https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529
+Alleged link to security patch in Spring production: https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529
 
-Looking for the original copy of this leaked 0day? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
+[@sbrannen ](https://github.com/sbrannen) (maintainer) comments:
+
+> What @Kontinuation said is correct.
+> 
+> The purpose of this commit is to inform anyone who had previously been using SerializationUtils#deserialize that it is dangerous to deserialize objects from untrusted sources.
+> 
+> The core Spring Framework does not use SerializationUtils to deserialize objects from untrusted sources.
+> 
+> If you believe you have discovered a security issue, please report it responsibly with the dedicated page: https://spring.io/security-policy
+> 
+> And please refrain from posting any additional comments to this commit.
+> 
+> Thank you
+
+Looking for the original copy of this *alleged* leaked 0day? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
 
 TODOs:
 
@@ -88,7 +102,15 @@ public void index(EvalBean evalBean, Model model) {
 
 So I started the whole process of parameter binding. When I followed the call position as follows, I was stunned.
 
-**TODO: Assess the contents of image 1 in the Vulnerability Analysis PDF.**
+> *Analyst's notes on picture*
+>
+> The author then shows a screenshot of `BreanWrapperImpl.class` (see [Spring Frameworks BeanWrapperImpl docs](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/beans/BeanWrapperImpl.html)) with an arrow pointing to `this.getCachedIntrospectionResults()` on line 110, with the label "Find property names from this cache."
+> 
+> The full line is:
+>
+> `PropertyDescriptor pd = this.getCachedIntrospectionResults() getPropertyDescriptor(propertyName);
+>
+> Additionally, the author highlights several bind and [set/apply]PropertyValue events in their debugger, with the note "the process of Spring parameter binding."
 
 When I looked at this "cache", I was stunned, why is there a "class" attribute cache here? ? ? ! ! ! ! !
 
