@@ -1,4 +1,4 @@
-This is a translated version of the Vulnerability Analysis document that the PoC author (`p1n93r`) released. It contains my own annotations as and dissections of screenshots as well. I hope it helps!
+This is a translated version of the Vulnerability Analysis document ([original here](https://github.com/tweedge/springcore-0day-en/blob/main/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%20(Vulnerability%20Analysis).pdf)) that the PoC author (`p1n93r`) released. It contains my own annotations as and dissections of screenshots as well. I hope it helps!
 
 # SpringBeans RCE Vulnerability Analysis (Translated)
 
