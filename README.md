@@ -8,27 +8,29 @@ These are all my notes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-
 
 A GitHub user (`p1n93r`) claimed, and then deleted, that by sending crafted requests to JDK9+ SpringBeans-using applications, *under certain circumstances*, that they can remotely:
 
-* Modify the logging parameters of that application to achieve an arbitrary write.
+* Modify the logging parameters of that application (via deserialization vulnerability).
 * Use the modified logger to write a valid JSP file that contains a webshell.
 * Use the webshell for remote execution tomfoolery.
 
-Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue, and several hours later, demo applications (linked below) were released so others could easily verify on their own and learn about this vulnerability. This is being described as a bypass for CVE-2010-1622 - and it is currently *unpatched*. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes detailed identification and mitigation steps.
+Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue, and several hours later, demo applications (linked below) were released so others could easily verify on their own and learn about this vulnerability. This is being described as a bypass for CVE-2010-1622 - and it is currently *unpatched*.
 
-## Resources
+For detection and remediation guidance, I *strongly* recommend reading over the detailed articles linked in the "[Further Reading](https://github.com/tweedge/springcore-0day-en#further-reading)" section.
+
+## Exploit Documentation
 
 I translated and annotated `p1n93r`'s original Vulnerability Analysis PDF ([original here](https://github.com/tweedge/springcore-0day-en/blob/main/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%20(Vulnerability%20Analysis).pdf)) from Mandarin to English, including the author's screenshots, in [ANALYSIS_EN.md](https://github.com/tweedge/springcore-0day-en/blob/main/ANALYSIS_EN.md). This has been machine-translated and has not yet been cleaned up by a native-Mandarin-speaker.
 
-Looking for the original copy? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
+The exploit itself is available at [exploit.py](https://github.com/tweedge/springcore-0day-en/blob/main/exploit.py), and has been formatted using [Black](https://github.com/psf/black) for slightly improved clarity.
+
+Looking for the original copy of any/all of this? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
 
 ## Do It Yourself!
 
-A few sample applications have been made so you can validate the PoC works, as well as learn more about what cases are exploitable. Tthe **simplest** example of this I can find is courtesy of @freeqaz of LunaSec, who developed [github.com/lunasec-io/spring-rce-vulnerable-app](https://github.com/lunasec-io/spring-rce-vulnerable-app/blob/main/src/main/java/fr/christophetd/log4shell/vulnerableapp/MainController.java).
+A few sample applications have been made so you can validate the PoC works, as well as learn more about what cases are exploitable. Tthe **simplest** example of this I can find is courtesy of @freeqaz of LunaSec, who developed [lunasec-io/spring-rce-vulnerable-app](https://github.com/lunasec-io/spring-rce-vulnerable-app/blob/main/src/main/java/fr/christophetd/log4shell/vulnerableapp/MainController.java) as a companion to their fantastic in-depth article about this vulnerability (linked in the "[Further Reading](https://github.com/tweedge/springcore-0day-en#further-reading)" section).
 
-Additional demonstration apps are available with slightly different conditions where this vulnerability would be exploitable:
+Additional demonstration apps are available with slightly different conditions where this vulnerability would be exploitable, such as [retrospected/spring-rce-poc](https://github.com/Retrospected/spring-rce-poc) for those interested in tinkering!
 
-* https://github.com/Retrospected/spring-rce-poc
-
-## Commentary
+## Commentary/Impact
 
 [Will Dormann](https://twitter.com/wdormann/status/1509280535071309827) (CERT/CC Vulnerability Analyst) notes:
 
@@ -43,11 +45,7 @@ Additional demonstration apps are available with slightly different conditions w
 > 
 > Also, the [Spring documentation](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/validation/DataBinder.html) is clear about security implications of YOLO usage of DataBinder. So add ignoring security guidance to the list above, and, well, I'm suspicious.
 
-This does not instinctively seem like it's going to be a cataclysmic event such as Log4Shell, as this vulnerability appears to require some probing to get working depending on the target environment, and the consensus on Twitter (as of 3/30) is that this appears to be nondefault.
-
-Based on my own review of the sample applications, this is certainly a serious issue, but I don't see clear/frequent cases where it would be exploitable in practice. Time will tell, and given this is RCE it it *at least* worth the research to figure out how much risk exposure your organization could have.
-
-But an all-hands-on-deck log4shell cataclysm, this is (probably) not.
+This does not instinctively seem like it's going to be a cataclysmic event such as Log4Shell, however given this is RCE it it *at least* worth the research to figure out how much risk exposure your organization could have. There also have been documented cases in the wild where this vulnerability is working, most notably in the ["Handling Form Submission" tutorial](https://spring.io/guides/gs/handling-form-submission/) from Spring, as [discovered by @th3_protoCOL](https://twitter.com/th3_protoCOL/status/1509345839134609408).
 
 ## Errors
 
@@ -73,9 +71,7 @@ The original PoC's README linked to an alleged security patch in Spring producti
 
 [Sam Brannen](https://github.com/sbrannen) (maintainer) comments on that commit:
 
-> What @Kontinuation said is correct.
-> 
-> The purpose of this commit is to inform anyone who had previously been using SerializationUtils#deserialize that it is dangerous to deserialize objects from untrusted sources.
+> ... The purpose of this commit is to inform anyone who had previously been using SerializationUtils#deserialize that it is dangerous to deserialize objects from untrusted sources.
 > 
 > The core Spring Framework does not use SerializationUtils to deserialize objects from untrusted sources.
 > 
@@ -85,8 +81,16 @@ The original PoC's README linked to an alleged security patch in Spring producti
 > 
 > Thank you
 
+## Further Reading
+
+These sources, in my opinion, Get It Right (and go into more detail!):
+
+* [LunaSec](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/)
+* [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/)
+* [Rapid7](https://www.rapid7.com/blog/post/2022/03/30/spring4shell-zero-day-vulnerability-in-spring-framework/)
+
 ## TODOs
 
 * ✅ Get a machine-made translation and notes down for all the screenshots included in the Vulnerability Analysis PDF.
 * ❌ Get a Mandarin speaker to help confirm and clean up the machine-made translation.
-* ✅ Replicate and release a demo application (somebody else did, see the DIY section!)
+* ✅ Replicate and release a demo application (somebody else did, see the "[DIY](https://github.com/tweedge/springcore-0day-en#do-it-yourself)" section!)
