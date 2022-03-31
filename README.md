@@ -49,7 +49,7 @@ Additional demonstration apps are available with slightly different conditions w
 
 It was later discovered that there are cases in the wild where this vulnerability is working, most notably in the ["Handling Form Submission" tutorial](https://spring.io/guides/gs/handling-form-submission/) from Spring, as [discovered by @th3_protoCOL](https://twitter.com/th3_protoCOL/status/1509345839134609408). *However*, thus far nobody's found evidence that this is widespread.
 
-In my opinion, any news article going out of its way to say "could this be the next log4shell?!?" is willfully overblowing this - this is a severe vulnerability, sure, but it only impacts nondefault usage of SpringCore with no proven widespread viability. It's categorically *not* log4shell-like. **While this currently does not seem like it's going to be a cataclysmic event, given this is RCE it it *at least* worth the research to figure out how much risk exposure your organization could have - see "[Check Yourself!](https://github.com/tweedge/springcore-0day-en#check-yourself)" to get started.**
+In my opinion, any news article going out of its way to say "could this be the next log4shell?!?" is willfully overblowing this - this is a severe vulnerability, sure, but it only impacts nondefault usage of SpringCore with no proven widespread viability. It's categorically *not* log4shell-like. **While this currently does not seem like it's going to be a cataclysmic event, given this is RCE *and* being actively targeted by attackers (refer [Bad Packets](https://twitter.com/bad_packets/status/1509603994166956049) and [GreyNoise](https://twitter.com/GreyNoiseIO/status/1509569701248217088)), it is *at least* worth the research to figure out how much risk exposure your organization could have.**
 
 ## Check Yourself!
 
@@ -67,7 +67,7 @@ Spring has released a CVE and patches for this issue, alongside full details on 
 
 Additionally, Spring Boot 2.5.15 is now available which includes the patch for CVE-2022-22965, per this [additional blog post from Spring](https://spring.io/blog/2022/03/31/spring-boot-2-5-12-available-now).
 
-Once you patch, you are no longer vulnerable to CVE-2022-22965. **However,** if you know your application is/was vulnerable, you should look for signs of malicious abuse or initial access, such as webshells which were dropped by attackers (such as Initial Access Brokers) to come back to later.
+Once you patch, you are no longer vulnerable to CVE-2022-22965. **However,** if you know your application is/was vulnerable, you should look for signs of malicious abuse or initial access, such as webshells which were dropped by attackers (such as Initial Access Brokers) to come back to later. As of 2022-03-31, mass scanning for this vulnerability is reported underway by [Bad Packets](https://twitter.com/bad_packets/status/1509603994166956049) and [GreyNoise](https://twitter.com/GreyNoiseIO/status/1509569701248217088).
 
 ## Errors
 
@@ -75,17 +75,17 @@ Once you patch, you are no longer vulnerable to CVE-2022-22965. **However,** if 
 
 **No.**
 
-CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions.
+CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions. Refer to [VMware Tanzu's report](https://tanzu.vmware.com/security/cve-2022-22963).
 * CVE: CVE-2022-22963 (duh)
-* Patch available: **Yes**.
-* CVSS score: Medium.
-* Impacts: Spring Cloud Function versions 3.1.6, 3.2.2, and older unsupported versions, where the routing functionality is used. See [VMware Tanzu's report](https://tanzu.vmware.com/security/cve-2022-22963).
+* Patch available: Yes.
+* CVSS score: Medium -> **upgraded to Critical 2022-03-31**.
+* Impacts: Spring Cloud Function versions 3.1.6, 3.2.2, and older unsupported versions, where the routing functionality is used.
 
-This vulnerability leads to RCE in Spring Core applications under nondefault circumstances.
+This vulnerability leads to RCE in Spring Core applications under nondefault circumstances. Refer to [VMware Tanzu's's report](https://tanzu.vmware.com/security/cve-2022-22965).
 * CVE: **As of 2022-03-31, this vulnerability has been assigned CVE-2022-22965**.
 * Patch available: **As of 2022-03-31, yes! See "[Mitigation.](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)"**
-* CVSS score: High, see [VMware Tanzu's's report](https://tanzu.vmware.com/security/cve-2022-22965).
-* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Spring's blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement).
+* CVSS score: **Assigned High on 2022-03-31, upgraded same-day to Critical.**
+* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Spring's blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement) for more details.
 
 ### Misattributed Changes on GitHub
 
