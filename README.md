@@ -28,7 +28,7 @@ Looking for the original copy of any/all of this? Use vx-underground's archive h
 
 A few sample applications have been made so you can validate the PoC works, as well as learn more about what cases are exploitable. Tthe **simplest** example of this I can find is courtesy of @freeqaz of LunaSec, who developed [lunasec-io/spring-rce-vulnerable-app](https://github.com/lunasec-io/spring-rce-vulnerable-app/blob/main/src/main/java/fr/christophetd/log4shell/vulnerableapp/MainController.java) as a companion to their fantastic in-depth article about this vulnerability (linked in the "[Further Reading](https://github.com/tweedge/springcore-0day-en#further-reading)" section).
 
-Additional demonstration apps are available with slightly different conditions where this vulnerability would be exploitable, such as [retrospected/spring-rce-poc](https://github.com/Retrospected/spring-rce-poc) for those interested in tinkering!
+Additional demonstration apps are available with slightly different conditions where this vulnerability would be exploitable, such as [reznok/Spring4Shell-POC](https://github.com/reznok/Spring4Shell-POC) (neatly Dockerized and very clean!) [retrospected/spring-rce-poc](https://github.com/Retrospected/spring-rce-poc) (uses a WAR file, which is closer to the original demo, but may be slightly less approachable) for those interested in tinkering!
 
 ## Commentary/Impact
 
