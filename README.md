@@ -1,4 +1,4 @@
-# springcore-0day-en
+# springcore-0day-en ("Spring4Shell")
 These are all my footnotes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-03-29. Originally, I had just translated the original vulnerability analysis document and was going to build a proof of concept - and I did the former, but not the latter.
 
 I hope it assists you in your sizing, analysis, and remediation. :)
@@ -13,7 +13,7 @@ A GitHub user (`p1n93r`) claimed, and then deleted, that by sending crafted requ
 * Use the modified logger to write a valid JSP file that contains a webshell.
 * Use the webshell for remote execution tomfoolery.
 
-Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue. This is being described as a bypass for CVE-2010-1622 - and that the vulnerability is currently unpatched. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes detailed identification and mitigation steps.
+Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue, and several hours later, demo applications (linked below) were released so others could easily verify on their own and learn about this vulnerability. This is being described as a bypass for CVE-2010-1622 - and it is currently *unpatched*. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes detailed identification and mitigation steps.
 
 ## Resources
 
@@ -31,17 +31,23 @@ Additional demonstration apps are available with slightly different conditions w
 
 ## Commentary
 
-[Will Dormann](https://twitter.com/wdormann/status/1509205469193195525) (CERT/CC analyst) notes:
+[Will Dormann](https://twitter.com/wdormann/status/1509280535071309827) (CERT/CC Vulnerability Analyst) notes:
 
-> So, somebody can produce a spring-beans-based Java app that uses parameter binding, and if that binding is with a Plain Old Java Object (POJO), this results in vulnerable code?
->
-> Spring now warns about folks using this footgun?
->
-> Are there any real-world apps that do this? If not 🤷
+> The prerequisites:
+> - Uses Spring Beans
+> - Uses Spring Parameter Binding
+> - Spring Parameter Binding must be configured to use a non-basic parameter type, such as POJOs
+> All this smells of "How can I make an app that's exploitable" vs. "How can I exploit this thing that exists?"
+> 
+> ...
+> 
+> Also, the [Spring documentation](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/validation/DataBinder.html) is clear about security implications of YOLO usage of DataBinder. So add ignoring security guidance to the list above, and, well, I'm suspicious.
 
 This does not instinctively seem like it's going to be a cataclysmic event such as Log4Shell, as this vulnerability appears to require some probing to get working depending on the target environment, and the consensus on Twitter (as of 3/30) is that this appears to be nondefault.
 
-Based on my own review of the sample applications, this is certainly a serious issue, but I don't see clear/frequent cases where it would be exploitable in practice. Time will tell, and it's worth the research to figure out if/how your organization would be impacted.
+Based on my own review of the sample applications, this is certainly a serious issue, but I don't see clear/frequent cases where it would be exploitable in practice. Time will tell, and given this is RCE it it *at least* worth the research to figure out how much risk exposure your organization could have.
+
+But an all-hands-on-deck log4shell cataclysm, this is (probably) not.
 
 ## Errors
 
