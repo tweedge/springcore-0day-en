@@ -37,6 +37,7 @@ Additional demonstration apps are available with slightly different conditions w
 > - Uses Spring Beans
 > - Uses Spring Parameter Binding
 > - Spring Parameter Binding must be configured to use a non-basic parameter type, such as POJOs
+> 
 > All this smells of "How can I make an app that's exploitable" vs. "How can I exploit this thing that exists?"
 > 
 > ...
