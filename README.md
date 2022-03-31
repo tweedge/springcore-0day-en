@@ -16,7 +16,7 @@ On March 29th, A GitHub user (`p1n93r`) claimed that by sending crafted requests
 
 Shortly after, `p1n93r`'s GitHub and Twitter disappeared, leading to much speculation. After an uncertain period of independent research, on March 30th reputable entities (ex. [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/), endividuals such as [@testanull](https://twitter.com/testanull/status/1509185015187345411), etc.) began publicly confirming that that they have replicated the issue, and shortly after, demo applications (see "[DIY](https://github.com/tweedge/springcore-0day-en#do-it-yourself)" section) were released so others could learn about this vulnerability. ~~This is being described as a bypass for CVE-2010-1622 - and it is currently unpatched and unconfirmed by Spring team, but information has been [handed off to them](https://twitter.com/rfordonsecurity/status/1509285351398985738) and it's safe to assume they're working hard on this.~~
 
-**New: a patch is available as of 2022-03-31, please see "Mitigation!"**
+**New: a patch is available as of 2022-03-31, please see "[Mitigation!](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)"**
 
 ## Exploit Documentation
 
@@ -81,9 +81,9 @@ CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions.
 
 This vulnerability leads to RCE in Spring Core applications under nondefault circumstances.
 * CVE: **As of 2022-03-31, this vulnerability has been assigned CVE-2022-22965**.
-* Patch available: **As of 2022-03-31, yes! See "Mitigation."**.
-* CVSS score: Unknown.
-* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) as well as the "[Commentary](https://github.com/tweedge/springcore-0day-en#commentary)" section of this README.
+* Patch available: **As of 2022-03-31, yes! See "[Mitigation.](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)"**
+* CVSS score: High, see [VMware Tanzu's's report](https://tanzu.vmware.com/security/cve-2022-22965).
+* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Spring's blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement)" section of this README.
 
 ### Misattributed Changes on GitHub
 
