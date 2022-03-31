@@ -85,7 +85,7 @@ This vulnerability leads to RCE in Spring Core applications under nondefault cir
 * CVE: **As of 2022-03-31, this vulnerability has been assigned CVE-2022-22965**.
 * Patch available: **As of 2022-03-31, yes! See "[Mitigation.](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)"**
 * CVSS score: High, see [VMware Tanzu's's report](https://tanzu.vmware.com/security/cve-2022-22965).
-* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Spring's blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement)" section of this README.
+* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Spring's blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement).
 
 ### Misattributed Changes on GitHub
 
