@@ -1,7 +1,6 @@
-# springcore-0day-en ("Spring4Shell")
-These are all my footnotes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-03-29. Originally, I had just translated the original vulnerability analysis document and was going to build a proof of concept - and I did the former, but not the latter.
+# springcore-0day-en
 
-I hope it assists you in your sizing, analysis, and remediation. :)
+These are all my notes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-03-29. This vulnerability is commonly referred to as "Spring4Shell" in the InfoSec community - an unfortunate name that calls back to the log4shell cataclysm, when (*so far*), impact of that magnitude has *not* been demonstrated. I hope this repository helps you assess the situation holistically, learn about the vulnerability, and drive risk down in your organization if risk is present. :)
 
 **Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the [Errors](https://github.com/tweedge/springcore-0day-en#errors) section for more details!**
 
