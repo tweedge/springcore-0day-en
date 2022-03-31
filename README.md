@@ -1,7 +1,9 @@
 # springcore-0day-en
-This is a translated summary (and all my footnotes) from the ~~alleged~~ **confirmed!** 0day dropped on 2022-03-29. I hope it assists you in your sizing, analysis, and remediation. :)
+These are all my footnotes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-03-29. Originally, I had just translated the original vulnerability analysis document and was going to build a proof of concept - and I did the former, but not the latter.
 
-**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult.**
+I hope it assists you in your sizing, analysis, and remediation. :)
+
+**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the "Errors" section for more details!**
 
 ## TL;DR
 
@@ -12,6 +14,12 @@ A GitHub user (`p1n93r`) claimed, and then deleted, that by sending crafted requ
 * Use the webshell for remote execution tomfoolery.
 
 Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue. This is being described as a bypass for CVE-2010-1622 - and that the vulnerability is currently unpatched. Please read over Praetorian's guidance [here](https://www.praetorian.com/blog/spring-core-jdk9-rce/) which includes detailed identification and mitigation steps.
+
+## Resources
+
+I translated and annotated `p1n93r`'s original Vulnerability Analysis PDF from Mandarin to English, including the author's screenshots, in [ANALYSIS_EN.md](https://github.com/tweedge/springcore-0day-en/blob/main/ANALYSIS_EN.md). This has been machine-translated and has not yet been cleaned up by a native-Mandarin-speaker.
+
+Looking for the original copy? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
 
 ## Do It Yourself!
 
@@ -33,6 +41,8 @@ Additional demonstration apps are available with slightly different conditions w
 
 This does not instinctively seem like it's going to be a cataclysmic event such as Log4Shell, as this vulnerability appears to require some probing to get working depending on the target environment, and the consensus on Twitter (as of 3/30) is that this appears to be nondefault.
 
+Based on my own review of the sample applications, this is certainly a serious issue, but I don't see clear/frequent cases where it would be exploitable in practice. Time will tell, and it's worth the research to figure out if/how your organization would be impacted.
+
 ## Errors
 
 ### Many articles/people/etc. claim this is CVE-2022-22963 - is it?
@@ -51,7 +61,7 @@ This vulnerability leads to RCE in Spring Core applications under nondefault cir
 * CVSS score: Unknown.
 * Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) for info we have *so far* on when this vulnerability occurs.
 
-### What Appears to be an Error in the Original Report
+### Misattributed Changes on GitHub
 
 The original PoC's README linked to an alleged security patch in Spring production [here](https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529), however given the maintainer's rebuttal (see below) and Praetorian's confirmation of the vulnerabiloity (see above), this patch appears unrelated and was flagged by the original author probably as a misunderstanding.
 
@@ -68,8 +78,6 @@ The original PoC's README linked to an alleged security patch in Spring producti
 > And please refrain from posting any additional comments to this commit.
 > 
 > Thank you
-
-Looking for the original copy? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
 
 ## TODOs
 
