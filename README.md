@@ -66,7 +66,7 @@ This vulnerability leads to RCE in Spring Core applications under nondefault cir
 * CVE: None assigned yet.
 * Patch available: **No**.
 * CVSS score: Unknown.
-* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) for info we have *so far* on when this vulnerability occurs.
+* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) as well as the Commentary section of this README.
 
 ### Misattributed Changes on GitHub
 
