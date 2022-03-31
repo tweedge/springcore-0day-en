@@ -16,7 +16,7 @@ On March 29th, A GitHub user (`p1n93r`) claimed that by sending crafted requests
 
 Shortly after, `p1n93r`'s GitHub and Twitter disappeared, leading to much speculation. After an uncertain period of independent research, on March 30th reputable entities (ex. [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/), endividuals such as [@testanull](https://twitter.com/testanull/status/1509185015187345411), etc.) began publicly confirming that that they have replicated the issue, and shortly after, demo applications (see "[DIY](https://github.com/tweedge/springcore-0day-en#do-it-yourself)" section) were released so others could learn about this vulnerability. ~~This is being described as a bypass for CVE-2010-1622 - and it is currently unpatched and unconfirmed by Spring team, but information has been [handed off to them](https://twitter.com/rfordonsecurity/status/1509285351398985738) and it's safe to assume they're working hard on this.~~
 
-**New: a patch is available as of 2022-03-31, please see "[Mitigation!](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)"**
+**New: a patch is available as of 2022-03-31, please see "[Mitigation!](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)." This vulnerability has also been upgraded from High to Critical severity.**
 
 ## Exploit Documentation
 
@@ -49,7 +49,9 @@ Additional demonstration apps are available with slightly different conditions w
 
 It was later discovered that there are cases in the wild where this vulnerability is working, most notably in the ["Handling Form Submission" tutorial](https://spring.io/guides/gs/handling-form-submission/) from Spring, as [discovered by @th3_protoCOL](https://twitter.com/th3_protoCOL/status/1509345839134609408). *However*, thus far nobody's found evidence that this is widespread.
 
-In my opinion, any news article going out of its way to say "could this be the next log4shell?!?" is willfully overblowing this - this is a severe vulnerability, sure, but it only impacts nondefault usage of SpringCore with no proven widespread viability. It's categorically *not* log4shell-like. **While this currently does not seem like it's going to be a cataclysmic event, given this is RCE *and* being actively targeted by attackers (refer [Bad Packets](https://twitter.com/bad_packets/status/1509603994166956049) and [GreyNoise](https://twitter.com/GreyNoiseIO/status/1509569701248217088)), it is *at least* worth the research to figure out how much risk exposure your organization could have.**
+In my opinion, any news article going out of its way to say "could this be the next log4shell?!?" is willfully overblowing this - this is a severe vulnerability, sure, but it only impacts nondefault usage of SpringCore with no proven widespread viability. It's categorically *not* log4shell-like.
+
+**While this currently does not seem like it's going to be a *cataclysmic* event, given this is a Critical RCE *and* being actively targeted by attackers (refer [Bad Packets](https://twitter.com/bad_packets/status/1509603994166956049) and [GreyNoise](https://twitter.com/GreyNoiseIO/status/1509569701248217088)), it is *at least* worth the research to figure out how much risk exposure your organization could have.**
 
 ## Check Yourself!
 
