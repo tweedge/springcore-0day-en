@@ -18,7 +18,7 @@ For detection and remediation guidance, I *strongly* recommend reading over the 
 
 ## Exploit Documentation
 
-I translated and annotated `p1n93r`'s original Vulnerability Analysis PDF ([original here](https://github.com/tweedge/springcore-0day-en/blob/main/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%20(Vulnerability%20Analysis).pdf)) from Mandarin to English, including the author's screenshots, in [ANALYSIS_EN.md](https://github.com/tweedge/springcore-0day-en/blob/main/ANALYSIS_EN.md). This has been machine-translated and has not yet been cleaned up by a native-Mandarin-speaker.
+I translated and annotated `p1n93r`'s original Vulnerability Analysis PDF ([original here](https://github.com/tweedge/springcore-0day-en/blob/main/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%20(Vulnerability%20Analysis).pdf)) from Mandarin to English, including the author's screenshots, in [ANALYSIS_EN.md](https://github.com/tweedge/springcore-0day-en/blob/main/ANALYSIS_EN.md). This was machine-translated, but the accuracy and clarity has been improved by [@yuesong](https://github.com/yuesong) via PR - thank you, Yuesong!
 
 The exploit itself is available at [exploit.py](https://github.com/tweedge/springcore-0day-en/blob/main/exploit.py), and has been formatted using [Black](https://github.com/psf/black) for slightly improved clarity.
 
