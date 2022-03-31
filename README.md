@@ -65,7 +65,9 @@ It's not clear if this is 100% comprehensive, but it should be a very good start
 
 Spring has released a CVE and patches for this issue, alongside full details on [this blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement). It is strongly recommended to upgrade to Spring Framework versions 5.3.8 or 5.2.20, which are now available. Additional details about upgrading are available in the blog post above, including information on upgrading with Maven or Gradle.
 
-GLHF, all!
+Additionally, Spring Boot 2.5.15 is now available which includes the patch for CVE-2022-22965, per this [additional blog post from Spring](https://spring.io/blog/2022/03/31/spring-boot-2-5-12-available-now).
+
+Once you patch, you are no longer vulnerable to CVE-2022-22965. **However,** if you know your application is/was vulnerable, you should look for signs of malicious abuse or initial access, such as webshells which were dropped by attackers (such as Initial Access Brokers) to come back to later.
 
 ## Errors
 
