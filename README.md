@@ -88,9 +88,3 @@ These sources, in my opinion, Get It Right (and go into more detail!):
 * [LunaSec](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/)
 * [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/)
 * [Rapid7](https://www.rapid7.com/blog/post/2022/03/30/spring4shell-zero-day-vulnerability-in-spring-framework/)
-
-## TODOs
-
-* ✅ Get a machine-made translation and notes down for all the screenshots included in the Vulnerability Analysis PDF.
-* ❌ Get a Mandarin speaker to help confirm and clean up the machine-made translation.
-* ✅ Replicate and release a demo application (somebody else did, see the "[DIY](https://github.com/tweedge/springcore-0day-en#do-it-yourself)" section!)
