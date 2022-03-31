@@ -3,7 +3,7 @@ These are all my footnotes from the ~~alleged~~ **confirmed!** 0day dropped on 2
 
 I hope it assists you in your sizing, analysis, and remediation. :)
 
-**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the "Errors" section for more details!**
+**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the [Errors](https://github.com/tweedge/springcore-0day-en#errors) section for more details!**
 
 ## TL;DR
 
@@ -17,7 +17,7 @@ Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/150
 
 ## Resources
 
-I translated and annotated `p1n93r`'s original Vulnerability Analysis PDF from Mandarin to English, including the author's screenshots, in [ANALYSIS_EN.md](https://github.com/tweedge/springcore-0day-en/blob/main/ANALYSIS_EN.md). This has been machine-translated and has not yet been cleaned up by a native-Mandarin-speaker.
+I translated and annotated `p1n93r`'s original Vulnerability Analysis PDF ([original here](https://github.com/tweedge/springcore-0day-en/blob/main/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90%20(Vulnerability%20Analysis).pdf)) from Mandarin to English, including the author's screenshots, in [ANALYSIS_EN.md](https://github.com/tweedge/springcore-0day-en/blob/main/ANALYSIS_EN.md). This has been machine-translated and has not yet been cleaned up by a native-Mandarin-speaker.
 
 Looking for the original copy? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
 
@@ -66,7 +66,7 @@ This vulnerability leads to RCE in Spring Core applications under nondefault cir
 * CVE: None assigned yet.
 * Patch available: **No**.
 * CVSS score: Unknown.
-* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) as well as the Commentary section of this README.
+* Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) as well as the "[Commentary](https://github.com/tweedge/springcore-0day-en#commentary)" section of this README.
 
 ### Misattributed Changes on GitHub
 
