@@ -6,15 +6,15 @@ These are all my notes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-
 
 ## TL;DR
 
-A GitHub user (`p1n93r`) claimed, and then deleted, that by sending crafted requests to JDK9+ SpringBeans-using applications, *under certain circumstances*, that they can remotely:
+On March 29th, A GitHub user (`p1n93r`) claimed that by sending crafted requests to JDK9+ SpringBeans-using applications, *under certain circumstances*, that they can remotely:
 
-* Modify the logging parameters of that application (via deserialization vulnerability).
+* Modify the logging parameters of that application.
 * Use the modified logger to write a valid JSP file that contains a webshell.
 * Use the webshell for remote execution tomfoolery.
 
-Praetorian and others (ex. [@testanull](https://twitter.com/testanull/status/1509185015187345411)) publicly confirmed that they have replicated the issue, and several hours later, demo applications (linked below) were released so others could easily verify on their own and learn about this vulnerability. This is being described as a bypass for CVE-2010-1622 - and it is currently *unpatched*.
+> Too short, not detailed enough for you? That's OK! Dive deeper with [LunaSec's exploit scenario!](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/#exploit-scenario-overview)
 
-For detection and remediation guidance, I *strongly* recommend reading over the detailed articles linked in the "[Further Reading](https://github.com/tweedge/springcore-0day-en#further-reading)" section.
+Shortly after, `p1n93r`'s GitHub and Twitter disappeared, leading to much speculation. After an uncertain period of independent research, on March 30th reputable entities (ex. Praetorian, endividuals such as [@testanull](https://twitter.com/testanull/status/1509185015187345411), etc.) began publicly confirming that that they have replicated the issue, and several hours later, demo applications (linked below) were released so others could easily verify on their own and learn about this vulnerability. This is being described as a bypass for CVE-2010-1622 - and it is currently unpatched and unconfirmed by Spring team, but information has been handed off to them and it's safe to assume they're working hard on this.
 
 ## Exploit Documentation
 
@@ -46,6 +46,16 @@ Additional demonstration apps are available with slightly different conditions w
 > Also, the [Spring documentation](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/validation/DataBinder.html) is clear about security implications of YOLO usage of DataBinder. So add ignoring security guidance to the list above, and, well, I'm suspicious.
 
 This does not instinctively seem like it's going to be a cataclysmic event such as Log4Shell, however given this is RCE it it *at least* worth the research to figure out how much risk exposure your organization could have. There also have been documented cases in the wild where this vulnerability is working, most notably in the ["Handling Form Submission" tutorial](https://spring.io/guides/gs/handling-form-submission/) from Spring, as [discovered by @th3_protoCOL](https://twitter.com/th3_protoCOL/status/1509345839134609408).
+
+## Check Yourself!
+
+The simplest/most straightforward test I've seen for establishing whether or not a service you administrate is vulnerable was published by Randori Security's [Attack Team](https://twitter.com/RandoriAttack/status/1509298490106593283):
+
+> The following non-malicious request can be used to test susceptibility to the SpringCore 0day RCE. An HTTP 400 return code indicates vulnerability.
+> 
+> `$ curl host:port/path?class.module.classLoader.URLs%5B0%5D=0`
+
+It's not clear if this is 100% comprehensive, but it should be a very good starting place for anyone that needs to automate or mass-scan endpoints!
 
 ## Errors
 
