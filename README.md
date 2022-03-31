@@ -2,7 +2,7 @@
 
 These are all my notes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-03-29. This vulnerability is commonly referred to as "Spring4Shell" in the InfoSec community - an unfortunate name that calls back to the log4shell cataclysm, when (*so far*), impact of that magnitude has *not* been demonstrated. I hope this repository helps you assess the situation holistically, learn about the vulnerability, and drive risk down in your organization if risk is present. :)
 
-**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the [Errors](https://github.com/tweedge/springcore-0day-en#errors) section for more details!**
+**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the [Errors](https://github.com/tweedge/springcore-0day-en#errors) section for more details! The actual CVE for this issue has been released 2022-03-31 and is *CVE-2022-22965*.**
 
 ## TL;DR
 
@@ -14,7 +14,9 @@ On March 29th, A GitHub user (`p1n93r`) claimed that by sending crafted requests
 
 > Too short, not detailed enough for you? That's OK! Dive deeper with [LunaSec's exploit scenario!](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/#exploit-scenario-overview)
 
-Shortly after, `p1n93r`'s GitHub and Twitter disappeared, leading to much speculation. After an uncertain period of independent research, on March 30th reputable entities (ex. [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/), endividuals such as [@testanull](https://twitter.com/testanull/status/1509185015187345411), etc.) began publicly confirming that that they have replicated the issue, and shortly after, demo applications (see "[DIY](https://github.com/tweedge/springcore-0day-en#do-it-yourself)" section) were released so others could learn about this vulnerability. This is being described as a bypass for CVE-2010-1622 - and it is currently unpatched and unconfirmed by Spring team, but information has been [handed off to them](https://twitter.com/rfordonsecurity/status/1509285351398985738) and it's safe to assume they're working hard on this.
+Shortly after, `p1n93r`'s GitHub and Twitter disappeared, leading to much speculation. After an uncertain period of independent research, on March 30th reputable entities (ex. [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/), endividuals such as [@testanull](https://twitter.com/testanull/status/1509185015187345411), etc.) began publicly confirming that that they have replicated the issue, and shortly after, demo applications (see "[DIY](https://github.com/tweedge/springcore-0day-en#do-it-yourself)" section) were released so others could learn about this vulnerability. ~~This is being described as a bypass for CVE-2010-1622 - and it is currently unpatched and unconfirmed by Spring team, but information has been [handed off to them](https://twitter.com/rfordonsecurity/status/1509285351398985738) and it's safe to assume they're working hard on this.~~
+
+**New: a patch is available as of 2022-03-31, please see "Mitigation!"**
 
 ## Exploit Documentation
 
@@ -59,6 +61,12 @@ The simplest/most straightforward test I've seen for establishing whether or not
 
 It's not clear if this is 100% comprehensive, but it should be a very good starting place for anyone that needs to automate or mass-scan endpoints!
 
+## Mitigation
+
+Spring has released a CVE and patches for this issue, alongside full details on [this blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement). It is strongly recommended to upgrade to Spring Framework versions 5.3.8 or 5.2.20, which are now available. Additional details about upgrading are available in the blog post above, including information on upgrading with Maven or Gradle.
+
+GLHF, all!
+
 ## Errors
 
 ### Many articles/people/etc. claim this is CVE-2022-22963 - is it?
@@ -72,8 +80,8 @@ CVE-2022-22963 is a local resource exposure bug in Spring Cloud Functions.
 * Impacts: Spring Cloud Function versions 3.1.6, 3.2.2, and older unsupported versions, where the routing functionality is used. See [VMware Tanzu's report](https://tanzu.vmware.com/security/cve-2022-22963).
 
 This vulnerability leads to RCE in Spring Core applications under nondefault circumstances.
-* CVE: None assigned yet.
-* Patch available: **No**.
+* CVE: **As of 2022-03-31, this vulnerability has been assigned CVE-2022-22965**.
+* Patch available: **As of 2022-03-31, yes! See "Mitigation."**.
 * CVSS score: Unknown.
 * Impacts: Any Java application using Spring Core under nondefault circumstances. See [Praetorian's report](https://www.praetorian.com/blog/spring-core-jdk9-rce/) as well as the "[Commentary](https://github.com/tweedge/springcore-0day-en#commentary)" section of this README.
 
