@@ -45,7 +45,9 @@ Additional demonstration apps are available with slightly different conditions w
 > 
 > Also, the [Spring documentation](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/validation/DataBinder.html) is clear about security implications of YOLO usage of DataBinder. So add ignoring security guidance to the list above, and, well, I'm suspicious.
 
-This does not instinctively seem like it's going to be a cataclysmic event such as Log4Shell, however given this is RCE it it *at least* worth the research to figure out how much risk exposure your organization could have. There also have been documented cases in the wild where this vulnerability is working, most notably in the ["Handling Form Submission" tutorial](https://spring.io/guides/gs/handling-form-submission/) from Spring, as [discovered by @th3_protoCOL](https://twitter.com/th3_protoCOL/status/1509345839134609408).
+It was later discovered that there are cases in the wild where this vulnerability is working, most notably in the ["Handling Form Submission" tutorial](https://spring.io/guides/gs/handling-form-submission/) from Spring, as [discovered by @th3_protoCOL](https://twitter.com/th3_protoCOL/status/1509345839134609408). *However*, thus far nobody's found evidence that this is widespread.
+
+In my opinion, any news article going out of its way to say "could this be the next log4shell?!?" is willfully overblowing this - this is a severe vulnerability, sure, but it only impacts nondefault usage of SpringCore with no proven widespread viability. It's categorically *not* log4shell-like. **While this currently does not seem like it's going to be a cataclysmic event, given this is RCE it it *at least* worth the research to figure out how much risk exposure your organization could have - see "[Check Yourself!](https://github.com/tweedge/springcore-0day-en#check-yourself)" to get started.**
 
 ## Check Yourself!
 
