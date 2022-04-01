@@ -2,7 +2,7 @@
 
 These are all my notes from the ~~alleged~~ **confirmed!** 0day dropped on 2022-03-29. This vulnerability is commonly referred to as "Spring4Shell" in the InfoSec community - an unfortunate name that calls back to the log4shell cataclysm, when (*so far*), impact of that magnitude has *not* been demonstrated. I hope this repository helps you assess the situation holistically, learn about the vulnerability, and drive risk down in your organization if risk is present. :)
 
-**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the [Errors](https://github.com/tweedge/springcore-0day-en#errors) section for more details! The actual CVE for this issue has been released 2022-03-31 and is *CVE-2022-22965*.**
+**Please note that this is a different issue than CVE-2022-22963! Major cybersecurity news outlets, including ThreatPost, have gotten this fact wrong - and this is compounding confusion across other outlets and making triage much more difficult. See the [Misconceptions](https://github.com/tweedge/springcore-0day-en#misconceptions) section for more details! The actual CVE for this issue has been released 2022-03-31 and is *CVE-2022-22965*.**
 
 ## TL;DR
 
@@ -12,11 +12,9 @@ On March 29th, A GitHub user (`p1n93r`) claimed that by sending crafted requests
 * Use the modified logger to write a valid JSP file that contains a webshell.
 * Use the webshell for remote execution tomfoolery.
 
-> Too short, not detailed enough for you? That's OK! Dive deeper with [LunaSec's exploit scenario!](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/#exploit-scenario-overview)
-
 Shortly after, `p1n93r`'s GitHub and Twitter disappeared, leading to much speculation. After an uncertain period of independent research, on March 30th reputable entities (ex. [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/), endividuals such as [@testanull](https://twitter.com/testanull/status/1509185015187345411), etc.) began publicly confirming that that they have replicated the issue, and shortly after, demo applications (see "[DIY](https://github.com/tweedge/springcore-0day-en#do-it-yourself)" section) were released so others could learn about this vulnerability. ~~This is being described as a bypass for CVE-2010-1622 - and it is currently unpatched and unconfirmed by Spring team, but information has been [handed off to them](https://twitter.com/rfordonsecurity/status/1509285351398985738) and it's safe to assume they're working hard on this.~~
 
-**New: a patch is available as of 2022-03-31, please see "[Mitigation!](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)." This vulnerability has also been upgraded from High to Critical severity.**
+Thankfully, Spring team did take this seriously, and a patch was released on 2022-03-31 - please see "[Mitigation!](https://github.com/tweedge/springcore-0day-en/blob/main/README.md#mitigation)." This vulnerability has also been upgraded from High to Critical severity.
 
 ## Exploit Documentation
 
@@ -24,7 +22,9 @@ I translated and annotated `p1n93r`'s original Vulnerability Analysis PDF ([orig
 
 The exploit itself is available at [exploit.py](https://github.com/tweedge/springcore-0day-en/blob/main/exploit.py), and has been formatted using [Black](https://github.com/psf/black) for slightly improved clarity.
 
-Looking for the original copy of any/all of this? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
+Looking for the original copy of this documentation? Use vx-underground's archive here: https://share.vx-underground.org/SpringCore0day.7z
+
+Want a technical breakdown of the exploit that is *way* less messy than the author's original documents? I recommend diving deeper with [LunaSec's exploit scenario](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/#exploit-scenario-overview) which is comprehensive and comprehensible.
 
 ## Do It Yourself!
 
@@ -71,7 +71,7 @@ Additionally, Spring Boot 2.5.15 is now available which includes the patch for C
 
 Once you patch, you are no longer vulnerable to CVE-2022-22965. **However,** if you know your application is/was vulnerable, you should look for signs of malicious abuse or initial access, such as webshells which were dropped by attackers (such as Initial Access Brokers) to come back to later. As of 2022-03-31, mass scanning for this vulnerability is reported underway by [Bad Packets](https://twitter.com/bad_packets/status/1509603994166956049) and [GreyNoise](https://twitter.com/GreyNoiseIO/status/1509569701248217088).
 
-## Errors
+## Misconceptions
 
 ### Many articles/people/etc. claim this is CVE-2022-22963 - is it?
 
@@ -89,9 +89,9 @@ This vulnerability leads to RCE in Spring Core applications under nondefault cir
 * CVSS score: **Assigned High on 2022-03-31, upgraded same-day to Critical.**
 * Impacts: Any Java application using Spring Core under nondefault circumstances. See [Spring's blog post](https://spring.io/blog/2022/03/31/spring-framework-rce-early-announcement) for more details.
 
-### Misattributed Changes on GitHub
+### Wasn't a patch available on 2022-03-29?
 
-The original PoC's README linked to an alleged security patch in Spring production [here](https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529), however given the maintainer's rebuttal (see below) and Praetorian's confirmation of the vulnerabiloity (see above), this patch appears unrelated and was flagged by the original author probably as a misunderstanding.
+The original PoC's README linked to an alleged security patch in Spring production [here](https://github.com/spring-projects/spring-framework/commit/7f7fb58dd0dae86d22268a4b59ac7c72a6c22529), however this was met with a rebuttal from the maintainer (see below), and many confirmations that the vulnerability is still working in up-to-date versions of Spring on 2022-03-30. This patch appeared unrelated, and was probnably flagged by the original author due to a misunderstanding.
 
 [Sam Brannen](https://github.com/sbrannen) (maintainer) comments on that commit:
 
@@ -104,6 +104,8 @@ The original PoC's README linked to an alleged security patch in Spring producti
 > And please refrain from posting any additional comments to this commit.
 > 
 > Thank you
+
+Now several days later, Spring confirmed that a patch had to be written to resolve this exploit. The precise fix appears to be [this commit](https://github.com/spring-projects/spring-framework/commit/002546b3e4b8d791ea6acccb81eb3168f51abb15) which limits what can be bound to CachedIntrospectionResults.
 
 ## Further Reading
 
