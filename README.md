@@ -114,3 +114,10 @@ These sources, in my opinion, Get It Right (and go into more detail!):
 * [LunaSec](https://www.lunasec.io/docs/blog/spring-rce-vulnerabilities/)
 * [Praetorian](https://www.praetorian.com/blog/spring-core-jdk9-rce/)
 * [Rapid7](https://www.rapid7.com/blog/post/2022/03/30/spring4shell-zero-day-vulnerability-in-spring-framework/)
+
+## Thanks
+
+A big thank you to folks who contributed to this living document!
+
+* [Yuesong Wang](https://github.com/yuesong) for improving translation clarity and tidying up
+* [Subhranil Sengupta](https://github.com/Staticsubh) and [Olaf Matyja](https://github.com/olafmat) for correcting my typo in the Spring Framework patched version number
