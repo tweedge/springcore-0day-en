@@ -121,3 +121,4 @@ A big thank you to folks who contributed to this living document!
 
 * [Yuesong Wang](https://github.com/yuesong) for improving translation clarity and tidying up
 * [Subhranil Sengupta](https://github.com/Staticsubh) and [Olaf Matyja](https://github.com/olafmat) for correcting my typo in the Spring Framework patched version number
+* [Jason M](https://github.com/hack-r) for a quick typo correction from `srping` to `spring` in the `exploit.py` file (just a docs change, does not impact exploit's utility)
